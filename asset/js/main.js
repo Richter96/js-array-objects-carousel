@@ -36,23 +36,18 @@ const images = [
     }
 ];
 
+//dichiaiamo i pulsanti del dom 
+const btnNext = document.querySelector('.next');
+const btnPrev = document.querySelector('.prev');
+
+
 
 // prendiamo elemento della dom nel quale insrire un markup
-const slider = document.querySelector('.slider')
-const markupCard = `
-    <div class="card">
-        <img src="./asset/img/03.webp" class="img-fluid" alt="...">
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-    </div>
-</div>
-`
-let i = 0
-// creo un loop per inserire le immagini 
-images.forEach((element, index, image)=>{
-    console.log(element(index).image)
+const sliderEl = document.querySelector('.slider')
+
+//diamo una funzione al tasto next
+btnNext.addEventListener('click', function(){
+
 })
 
 
@@ -61,6 +56,44 @@ images.forEach((element, index, image)=>{
 
 
 
-function printToDom(markup, elementDom) {
-    elementDom.insertAdjacentHTML('beforeend', markup)
+
+
+
+
+
+
+
+
+/* console.log("FOR");
+// creo un loop per inserire le immagini 
+for (let i = 0; i < images.length; i++) {
+    thiscard = images[i]
+    console.log(i,thiscard)
+} */
+// ciclo con heach
+// console.log("FOREACH");// si può mettere un consol log anche prima di un risultato
+let activeImg = 1
+
+images.forEach((immagine, i) => {
+    const markupCard = generateMarkupCard(immagine.image, immagine.title, immagine.text)
+    console.log(markupCard, i)
+    sliderEl.insertAdjacentHTML('beforeend', markupCard)
+    if (i === activeImg) {
+        document.querySelector('.card').classList.add('active')
+    } else {""}
+})
+
+
+
+// console.log(images[0])
+function generateMarkupCard(img, title, text) {
+    return `
+    <div class="card">
+        <img src="./asset/${img}" class="img-fluid" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">${title}</h5>
+            <p class="card-text">${text}</p>
+        </div>
+    </div>
+    `
 }
