@@ -36,32 +36,18 @@ const images = [
     }
 ];
 
+
+// ---------------- dichiaro le costanti
+let activeImg = 0;
+
+
 //dichiaiamo i pulsanti del dom 
 const btnNext = document.querySelector('.next');
 const btnPrev = document.querySelector('.prev');
 
 
-
 // prendiamo elemento della dom nel quale insrire un markup
-const sliderEl = document.querySelector('.slider')
-
-//diamo una funzione al tasto next
-btnNext.addEventListener('click', function(){
-
-})
-
-
-
-
-
-
-
-
-
-
-
-
-
+const sliderEl = document.querySelector('.slider');
 
 
 /* console.log("FOR");
@@ -72,21 +58,76 @@ for (let i = 0; i < images.length; i++) {
 } */
 // ciclo con heach
 // console.log("FOREACH");// si può mettere un consol log anche prima di un risultato
-let activeImg = 1
 
 images.forEach((immagine, i) => {
-    const markupCard = generateMarkupCard(immagine.image, immagine.title, immagine.text)
-    console.log(markupCard, i)
+    const markupCard = `
+    <div class="card ${i === activeImg ? 'active' : ""}">
+        <img src="./asset/${immagine.image}" class="img-fluid" alt="..." >
+        <div class="card-body">
+            <h5 class="card-title">${immagine.title}</h5>
+            <p class="card-text">${immagine.text}</p>
+        </div>
+    </div>
+    `
+    // console.log(markupCard, i)
     sliderEl.insertAdjacentHTML('beforeend', markupCard)
+})
+
+const allCard = document.querySelectorAll('.card')
+console.log(allCard)
+
+//diamo una funzione al tasto next
+btnNext.addEventListener('click', function () {
+    const currentCard = allCard[activeImg]
+    console.log(currentCard);
+    //rimuoviamo dalla card attuale la classe active
+    currentCard.classList.remove('active')
+    // incrementiamo active image
+    activeImg === allCard.length - 1 ? activeImg = 0 : activeImg++
+    // recuperiamo la nuova card
+    const nextCard = allCard[activeImg]
+    console.log(nextCard)
+    nextCard.classList.add('active')
+});
+
+btnPrev.addEventListener('click', function () {
+    const currentCard = allCard[activeImg]
+    console.log(currentCard);
+    //rimuoviamo dalla card attuale la classe active
+    currentCard.classList.remove('active')
+    // incrementiamo active image
+    activeImg === 0 ? activeImg = allCard.length - 1 : activeImg--
+    // recuperiamo la nuova card
+    const nextCard = allCard[activeImg]
+    console.log(nextCard)
+    nextCard.classList.add('active')
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* // console.log(images[0])
+function generateMarkupCard(img, title, text, i) {
     if (i === activeImg) {
         document.querySelector('.card').classList.add('active')
     } else {""}
-})
-
-
-
-// console.log(images[0])
-function generateMarkupCard(img, title, text) {
     return `
     <div class="card">
         <img src="./asset/${img}" class="img-fluid" alt="...">
@@ -96,4 +137,4 @@ function generateMarkupCard(img, title, text) {
         </div>
     </div>
     `
-}
+} */
