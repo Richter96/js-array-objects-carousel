@@ -37,14 +37,12 @@ const images = [
 ];
 
 
-// ---------------- dichiaro le costanti
+// -------------------------------------------- VARIABILI/ COSTANTI
 let activeImg = 0;
 
-
-//dichiaiamo i pulsanti del dom 
+// dichiaiamo i pulsanti del dom 
 const btnNext = document.querySelector('.next');
 const btnPrev = document.querySelector('.prev');
-
 
 // prendiamo elemento della dom nel quale insrire un markup
 const sliderEl = document.querySelector('.slider');
@@ -60,17 +58,9 @@ for (let i = 0; i < images.length; i++) {
 // console.log("FOREACH");// si può mettere un consol log anche prima di un risultato
 
 images.forEach((immagine, i) => {
-    const markupCard = `
-    <div class="card ${i === activeImg ? 'active' : ""}">
-        <img src="./asset/${immagine.image}" class="img-fluid" alt="..." >
-        <div class="card-body">
-            <h5 class="card-title">${immagine.title}</h5>
-            <p class="card-text">${immagine.text}</p>
-        </div>
-    </div>
-    `
-    // console.log(markupCard, i)
+    const markupCard = generaMarkup(immagine.text, immagine.title, immagine.image, i, activeImg)
     sliderEl.insertAdjacentHTML('beforeend', markupCard)
+
 })
 
 const allCard = document.querySelectorAll('.card')
@@ -107,6 +97,18 @@ btnPrev.addEventListener('click', function () {
 
 
 
+// ------------------------------ FUNZIONI
+
+function generaMarkup(testo, titolo, img, i, activeImg) {
+    return ` <div class="card ${i === activeImg ? 'active' : ""}">
+    <img src="./asset/${img}" class="" alt="..." >
+    <div class="card-body">
+        <h5 class="card-title">${titolo}</h5>
+        <p class="card-text">${testo}</p>
+    </div>
+</div>
+`
+}
 
 
 
